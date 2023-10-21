@@ -19,6 +19,8 @@ import gc
 import onewire
 import ds18x20
 
+from sensors.ds18b20 import DS18B20Sensor
+
 import settings
 
 esp.osdebug(None)
@@ -47,3 +49,29 @@ while True:
             print("Failed to POST:", response)
     except Exception as error:
         print("Failed to POST:", error)
+
+    # def main():
+    #     air_temp_sensor = DS18B20Sensor(rom=settings.AIR_ROM)
+    #     water_temp_sensor = DS18B20Sensor(rom=settings.WATER_ROM)
+    #     air_temp = air_temp_sensor.read_ds_sensor()
+    #     water_temp = water_temp_sensor.read_ds_sensor()
+    #
+    #     data = {
+    #         "air": air_temp,
+    #         "water": water_temp
+    #     }
+    #
+    #     request = requests.Request()
+    #     try:
+    #         response = request.post(url=settings.URL, data=data)
+    #         if response.status_code != 200:
+    #             print("Failed to POST:", response)
+    #     except Exception as error:
+    #         print("Failed to POST:", error)
+    #
+    # sleep_time = (settings.INTERVAL_MIN or 0.1) * 10 ^ 6
+    # deepsleep(sleep_time)
+#
+#
+# if __name__ == "__main__":
+#     main()
