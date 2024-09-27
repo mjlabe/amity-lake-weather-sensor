@@ -1,3 +1,5 @@
+import time
+
 import network
 import urequests
 import gc
@@ -11,12 +13,24 @@ class Request:
         station.active(True)
         station.connect(ssid, password)
 
-        while station.isconnected() == False:
-            pass
+        # try to connect for 30s
+        for _ in range(1, 30):
+            if not station.isconnected():
+                print("Connecting...")
+                time.sleep_ms(1000)
+                pass
+            print('Connection successful')
+            print(station.ifconfig())
+            return
 
-        print('Connection successful')
+        print('Error: Connection unsuccessful')
         print(station.ifconfig())
 
     @staticmethod
     def post(url, data):
-        urequests.post(url, data)
+        try:
+            urequests.post(url, data)
+
+        except Exception as error:
+            print("Error: Unable to post request")
+            print(str(error))
